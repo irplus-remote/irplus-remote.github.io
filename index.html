@@ -1,0 +1,92 @@
+﻿<!doctype html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="irplus - highly customizable infrared protocol app">
+    <title>binarymode &ndash; irplus</title>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    
+    <link rel="stylesheet" href="pure/pure-min.css">
+    
+    <link rel="stylesheet" href="css/tabs.css">
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+</head>
+
+<body>
+<div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link">
+        <span></span>
+    </a>
+    <div id="menu">
+        <div id="navigationContent"></div>
+    </div>
+    <div id="main">
+        <div class="header">
+            <h1>irplus</h1>
+            <h2>highly customizable infrared protocol app</h2>
+        </div>
+        <div class="content">
+            <div id="includedContent"></div>
+        </div>
+    </div>
+</div>
+<script>
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function loadContent(target, page, callback){
+    $("#" + target).load(page+".html",callback);
+}
+function changeMainContent(page,callback){
+    loadContent('includedContent',page,callback);
+}
+function navigateTo(page){
+    $('[id^="puremenuitem-"]').removeClass('menu-item-divided pure-menu-selected');
+    $('[id^="puremenuitem-' + page + '"]').addClass('menu-item-divided pure-menu-selected');
+    changeMainContent(page,function(){
+      var menuLink = document.getElementById('menuLink');
+      disableResponsiveMenu();
+      initJQueryTabs();
+    });
+}
+ $(function(){
+    loadContent('navigationContent','menu',function(){
+    	
+    	var requested=getUrlParameter('start');
+    	if(requested){
+    		navigateTo(requested);
+    	} else {
+        	navigateTo('main');
+    	}
+    });
+ });
+
+function initJQueryTabs(){
+   $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+}
+
+ 
+
+</script>
+<script src="js/ui.js"></script>
+</body>
+</html>
