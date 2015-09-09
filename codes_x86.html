@@ -1,0 +1,114 @@
+﻿<h2 class="content-subhead">Build a COM (RS232) Port infrared receiver for your PC</h2>
+            <p>
+               You can build it yourself by using the following components. Often you can gather these components from old devices like SAT-receivers and DVD-Players. Note: This will _NOT_ work with USB-to-COM / RS232 Adapters like Prolific!
+			   <table class="pure-table">
+				<thead>
+					<tr>
+						<th>Shopping list</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>9-pin COM-Port connector (usually female)</td>
+					</tr>
+					<tr>
+						<td>any 36-40Khz IR receiver (example: TSOP 1738)</td>
+					</tr>
+					<tr>
+						<td>10K Resistor</td>
+					</tr>
+					<tr>
+						<td>4.7K Resistor</td>
+					</tr>
+					<tr>
+						<td>Diode 1N4148</td>
+					</tr>
+					<tr>
+						<td>Capacitor 4.7µ</td>
+					</tr>
+				</tbody>
+			</table>
+			</p>
+			 <p>
+			  <div>
+               Soldering:
+			   GND = Pin 5; RTS = Pin 7; DCD = Pin 1; 
+			   </div>
+			   <div>
+			   Note: The connector is showing the connector part. When you are soldering consider that the pins on the back part are on the other side, So for instance Pin 1 is the upper left-most one.
+			   </div>
+			</p>
+			<div>
+				<img class="pure-img-responsive" src="images/DE9female.png" alt="DB9">
+			</div>
+			<div>
+				<img class="pure-img-responsive" src="images/solderimg.png" alt="DB9">
+			</div>
+			
+			 <h2 class="content-subhead">Software to read codes</h2>
+            <p>
+               To read the codes I recommend to use either <a href="http://www.lirc.org" target="_blank" style="color: #999;">lirc</a> (Linux) or <a href="http://winlirc.sourceforge.net" target="_blank" style="color: #999;">winlirc</a> (Windows). Here you will see the procedure with WinLIRC, but Lirc/Linux one should be very similar.
+			</p>
+			<p>
+              Use irgraph.exe to test your receiver. A typical infrared code should look like on this picture - It might be wider or lower, but still you should see some bars.
+			</p>
+			<div>
+				<img class="pure-img-responsive" src="images/irgraph.png" alt="irgraph">
+			</div>
+			<p>
+              Use lirc / winlirc to create a configuration file for your remote control. There are two ways of creating this configuration file: "raw" and "default". It should be first tried to create the config with "default" and if this fails a second attempt using "raw" should be considered.
+			</p>
+			 <p> 
+			  <div>
+              Example command for default mode:
+			  </div>
+			  <div style="font-family: 'Courier New'">
+				irrecord -d plugins\SerialDevice.dll mydevice.cf
+			  </div>
+			   <div>
+              Example command for raw mode:
+			  </div>
+			  <div style="font-family: 'Courier New'">
+				irrecord -f -d plugins\SerialDevice.dll mydevice.cf
+			  </div>
+			</p>
+			<p>
+              The result of a lirc configuration might look like this:
+			</p>
+			
+			  <div style="font-family: 'Courier New'">bits           16 </div>
+			 <div style="font-family: 'Courier New'">flags SPACE_ENC|CONST_LENGTH </div>
+			 <div style="font-family: 'Courier New'">eps            30 </div>
+			 <div style="font-family: 'Courier New'">aeps          100 </div>
+
+			 <div style="font-family: 'Courier New'; margin-top: 10px;"> header       9176  4407 </div>
+			 <div style="font-family: 'Courier New'"> one           679  1581 </div>
+			 <div style="font-family: 'Courier New'"> zero          679   452 </div>
+			 <div style="font-family: 'Courier New'"> ptrail        686 </div>
+			 <div style="font-family: 'Courier New'"> repeat       9173  2138 </div>
+			 <div style="font-family: 'Courier New'"> pre_data_bits   16 </div>
+			 <div style="font-family: 'Courier New'"> pre_data       0x10EF </div>
+			 <div style="font-family: 'Courier New'"> gap          108572 </div>
+			 <div style="font-family: 'Courier New'"> toggle_bit_mask 0x0 </div>
+
+			 <div style="font-family: 'Courier New'; margin-left: 30px; margin-top: 10px;"> begin codes </div>
+			<div style="font-family: 'Courier New'; margin-left: 30px;">	  mute                     0x6897 </div>
+			<div style="font-family: 'Courier New'; margin-left: 30px;">	  pwr                      0x7887 </div>
+			<div style="font-family: 'Courier New'; margin-left: 30px;">	  av                       0x807F </div>
+			<div style="font-family: 'Courier New'; margin-left: 30px;">	  tv/rad                   0x2AD5 </div>
+
+			<p>
+              Congratulations! You have successfully read the codes of your remote!
+			</p>
+			
+			<p>
+				Advanced Information: One / Zero / Header determines how many time passes during your remote does to represent a logical state. Example: If we could see the remote’s infrared light we would see a “1” represented by 679µs of ir-light and following 1581µs of no-light. A “0” would be represented by 679µs of ir-light and 452µs of silence. Bits determines how many 0 or 1 are possible for this format - in this case (Mute-code) 16-bits (4-Bytes) 00010000 11101111 01101000 10010111. The third and fourth byte are only repeat-sequences where each bit is inverted.
+
+			</p>
+			
+			 <h2 class="content-subhead">Import the lirc configuration in irplus</h2>
+			<p>
+              You can either directly import the lirc file in irplus or create a customized XML layout. Read more about the layout in the "Layouting" section of this website.
+			</p>
+			 
+				

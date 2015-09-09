@@ -1,0 +1,121 @@
+	<h2 class="content-subhead">How to find codes?</h2>
+            <p>
+               The first attempts to find new codes should be done via a good old internet research. Often someone in this big world probably already provided codes, or even the manufacturer did. Just use "modelname + discrete infrared codes" in your favorite search engine.
+			</p>
+			
+			<p> Common Google Searches to find codes (May need to disable pop up blocker)</p>
+			
+			<span> Enter model number of remote or device </span>
+			<input id="autogoogle" type="text"></input>
+			<input type="button"  onclick="doCommonGSearches();" value="Search"></button>
+			<script>
+				function doCommonGSearches(){
+					var autogvalue = document.getElementById('autogoogle').value;
+					var gurl = 'https://www.google.com?#q=';
+					 window.open(gurl + autogvalue + '+discrete ir codes', '_blank');
+					 window.open(gurl + autogvalue + '+rmdu', '_blank');
+					 window.open(gurl + autogvalue + '+remotecentral', '_blank');
+					 window.open(gurl + autogvalue + '+lirc', '_blank');
+					 window.open(gurl + autogvalue + '+ict', '_blank');
+					 window.open(gurl + autogvalue + '+pronto hex', '_blank');
+				}
+			
+			</script>
+			<h2 class="content-subhead">Popular web resources about IR codes (3rd party)</h2>
+			
+				<table class="pure-table">
+				 
+				<tbody>
+					<tr>
+						<td><a href="http://files.remotecentral.com/" target="_blank" >Remotecentral</a></td>
+						<td><a href="http://lirc.sourceforge.net/remotes/" target="_blank" >lirc sourceforge</a></td>
+						<td><a href="http://www.hifi-remote.com/forums/dload.php" target="_blank" >JP1 files</a></td>
+						<td><a href="http://www.getzweb.net/jp1/" target="_blank" >JP1 lookup</a></td>
+					</tr>
+					 
+					 
+				</tbody>
+			</table>
+			
+			<span>Some cool manufacturers even have publicly available discrete IR codes. </span> 
+						  
+				<table class="pure-table">
+				 
+				<tbody>
+					<tr>
+						 
+<td><a href="http://www.pioneerelectronics.com/PUSA/Support/Home-Entertainment-Custom-Install/IR+Codes" target="_blank" >Pioneer</a></td>
+											 </tr>
+					 
+				 	</tr>
+					 
+					 
+				</tbody>
+			</table>
+			
+		 
+			
+			<h2 class="content-subhead">Already requested codes - Help to find them or add yours!</h2>
+			<p>
+               You can edit the second sheet on this <a href="https://goo.gl/G6v2aX" target="_blank" >Google Spreadsheet</a>, add any information you want there, or insert devices you need,
+			</p>
+			 
+			
+			
+				<h2 class="content-subhead">Converters and tools</h2>
+            <p>
+				
+				<table class="pure-table">
+				 
+				<tbody>
+					<tr>
+						<td><a href="converter/rdf.html" target="_blank">RDF to irplus</a></td>
+						<td><a href="converter/lirc.html" target="_blank">LIRC to irplus</a></td>
+						<td><a href="converter/rcentral.html" target="_blank">RemoteCentral to irplus</a></td>
+					</tr>
+					 
+					 
+				</tbody>
+			</table>
+	 
+			</p>
+			
+
+            <h2 class="content-subhead">Want to read codes from a remote?</h2>
+            <p>
+               On this page I will describe the process to read infrared codes from a remote control and how to format them into an irplus layout file.
+			</p>
+			
+		 
+       		<table class="pure-table">
+				 
+				<tbody>
+					<tr>
+						<td><a href="#codesx86content">PC (COM-Port)</a></td>
+						<td><a href="#codesarmcontent">ARM (Raspberry)</a></td>
+					</tr>
+ 
+				</tbody>
+			</table>
+            
+                        <a name="codesx86content"></a>
+                        <div id="codesx86content"></div>
+                  
+                        <a name="codesarmcontent"></a>
+                        <div id="codesarmcontent"></div>
+        
+
+<script>
+ $(function(){
+    loadContent('codesx86content','codes_x86',function(){
+        
+    });
+    loadContent('codesarmcontent','codes_arm',function(){
+        
+    });
+});
+
+</script>
+
+
+			 

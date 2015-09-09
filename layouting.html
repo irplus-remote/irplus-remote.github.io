@@ -1,0 +1,198 @@
+ 
+             <h2 class="content-subhead">Is your remote layout ugly?</h2>
+            <p>
+              Many preset remote controls in irplus have a very simple layout, as i did not have the time to search a picture of the original remote control and modify the layout to resemble it. However YOU can do something about it by following this guideline :-)
+			</p>
+
+			<h2 class="content-subhead">1. via App interface</h2>
+            <p>
+              You can do basic edits inside the app. See the video below for some inspiration.
+			</p>
+			
+			 <iframe width="500" height="480"
+				src="https://www.youtube.com/embed/zwC31Sc_SIQ?autoplay=1">
+				</iframe>
+			
+			 <h2 class="content-subhead">2. via XML</h2>
+            <p>
+              Each irplus remote control is stored as XML and can be freely edited to your needs. You can import and export irplus-xml files within the app, but you may also create a totally new one and import it via file or even via an URL
+			</p>
+			
+			<h2 class="content-subhead">Example</h2>
+          
+			
+			<div>
+	       <pre><code>
+&lt;irplus>
+	&lt;device manufacturer="Manufacturer" model="Model" columns="3" format="PRONTO_HEX">
+		&lt;button label="POWER" labelColor="FF000000" labelSize="20.0" backgroundColor="FFFFFFFF">0000 0048 0000 0024 0016 0163 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 0062 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 0163 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 0062 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 00A2 0017 0164 0017 1A32
+		&lt;/button>
+	&lt;/device>
+&lt;/irplus>
+			</pre></code>
+			</div>
+			
+			
+			
+			<h2 class="content-subhead">Button labels</h2>
+            <p>
+              You may use the full Unicode (UTF-8) set for naming your buttons. In addition to this you can use font-awesone icons to specify buttons. To choose an icon use the unicode identifier. Here: "f050". For a full list of font-awesome icons see <a style="color: #999;" href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">here.</a>To get the unicode identifier for an icon, click on it and search for 'Unicode'.
+			</p>
+			<pre><code>
+&lt;button label="&amp;#xf050;" labelColor="FF000000" labelSize="25" backgroundColor="FFFFFFFF" span="3">0010101001001100000000101000&lt;/button>
+			</pre></code>
+			
+			 <p>
+              You may also use Unicode Emojis but these may not be available on all Android devices. But 4.4/5.x+ should have them. See this url for reference and copy+paste them into the label attribute <a style="color: #999;" href="http://getemoji.com/" target="_blank">http://getemoji.com/</a>. Note: Chrome does not show emojis. If you want to see them please use Firefox, InternetExplorer or Safari.
+			</p>
+			
+			<pre><code>
+&lt;button label="🛂" labelColor="FF000000" labelSize="25" backgroundColor="FFFFFFFF" span="3">0010101001001100000000101000&lt;/button>
+			</pre></code>
+			
+			
+			<h2 class="content-subhead">Color reference</h2>
+            <p>
+             Here you will find a table with commonly used colors and their hex code to put on an irplus button. The format is AARRGGBB. (A=Alpha, R=Red, G=Green, B=Blue). Use them for labelColor and backgroundColor. Use contrasts to make the buttons more visible. 
+			</p>
+			<table class="pure-table">
+				<thead>
+					<tr>
+						<th>Color</th>
+						<th>Hex-Code</th>
+						<th> </th>
+						<th>Color</th>
+						<th>Hex-Code</th>
+						<th> </th>
+						<th>Color</th>
+						<th>Hex-Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="background-color: black;"></td>
+						<td>FF000000</td>
+						<th> </th>
+						<td style="background-color: #C84334;"></td>
+						<td>FFC84334</td>
+						<th> </th>
+						<td style="background-color: #ff00ff;"></td>
+						<td>FFFF00FF</td>
+					</tr>
+					<tr>
+						<td style="background-color: #444444;"></td>
+						<td>FF444444</td>
+						<th> </th>
+						<td style="background-color: #D6A81F;"></td>
+						<td>FFD6A81F</td>
+						<th> </th>
+						<td style="background-color: #FFFF00;"></td>
+						<td>FFFFFF00</td>
+					</tr>
+					<tr>
+						<td style="background-color: #888888;"></td>
+						<td>FF888888</td>
+						<th> </th>
+						<td style="background-color: #2A4C94;"></td>
+						<td>FF2A4C94</td>
+						<th> </th>
+						<td style="background-color: #00FFFF;"></td>
+						<td>FF00FFFF</td>
+					</tr>
+					<tr>
+						<td style="background-color: white;"></td>
+						<td>FFFFFFFF</td>
+						<th> </th>
+						<td style="background-color: #1E7854;"></td>
+						<td>FF1E7854</td>
+						<th> </th>
+						<td style="background-color: #00FF00;"></td>
+						<td>FF00FF00</td>
+					</tr>
+					
+					
+
+				</tbody>
+			</table>
+			
+			<h2 class="content-subhead">Grid layout</h2>
+            <p>
+              Each layout consists of columns and rows. The column value is to be seen more like a grid column. A button may span multiple colums, so we can have each line have a different amount of buttons. To achieve this adhere to the following table with examples
+			</p>
+			
+			 <table class="pure-table">
+				<thead>
+					<tr>
+						<th>Buttons in a row?</th>
+						<th>Columns (Device)</th>
+						<th>Span (Button)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>c</td>
+						<td>s = c</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>c</td>
+						<td>c / 2</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>c</td>
+						<td>c / 3</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			 <p>
+              Most common remote layout: 1, 2, 3 and 4 buttons in a row on the same layout. (Lowest common multiple)
+			</p>
+			
+			 <table class="pure-table">
+				<thead>
+					<tr>
+						<th>Buttons in a row?</th>
+						<th>Columns (Device)</th>
+						<th>Span (Button)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>12</td>
+						<td>12</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>12</td>
+						<td>6</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>12</td>
+						<td>4</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>12</td>
+						<td>3</td>
+					</tr>
+				</tbody>
+			</table>
+			
+				       <pre><code>
+&lt;irplus>
+&lt;device manufacturer="Manufacturer" model="Model" columns="12" format="PRONTO_HEX">
+
+&lt;button label="RED" labelColor="FFFF0000" labelSize="20.0" backgroundColor="FFFF0000" span="3">0000..&lt;/button>
+&lt;button label="GREEN" labelColor="FF00FF00" labelSize="20.0" backgroundColor="FF00FF00" span="3">0000..&lt;/button>
+&lt;button label="BLUE" labelColor="FF0000FF" labelSize="20.0" backgroundColor="FF0000FF" span="3">0000..&lt;/button>
+&lt;button label="YELLOW" labelColor="FFFFFF00" labelSize="20.0" backgroundColor="FFFFFF00" span="3">0000..&lt;/button>
+
+&lt;/device>
+&lt;/irplus>
+			</pre></code>
+  
