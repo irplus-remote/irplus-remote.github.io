@@ -1,0 +1,312 @@
+﻿<!doctype html>  
+<html lang="en">
+
+<!-- updated 9-8-2015 , 10:11 AM -->
+
+<head>
+<title>LIRC 2 irplus XML</title>	
+ <style>
+  label { padding: 0; marign: 0; display: block; }
+  textarea { width: 100%; border: 1px solid #333; padding: 4px;  resize: none; }
+  .the-fix { padding-right: 10px; }
+ </style>
+ 
+</head>
+ 
+<body>
+
+<div style="100%">
+	<input type="button" value="Convert!" onclick="doConversion();"></input>
+</div>
+
+<div style="width: 50%; float: left;">
+ <label class="the-fix">
+ Input: lirc
+  <textarea id="lirc_input" rows="50"></textarea>
+ </label>
+</div>
+
+<div style="width: 50%; float: right;">
+ <label class="the-fix">
+ Output: irplus XML
+  <textarea id="irp_output" rows="50"></textarea>
+ </label>
+</div>
+ 
+ <p>
+ Example of lirc-files: see <a href="http://lirc.sourceforge.net/remotes">http://lirc.sourceforge.net/remotes</a> - Copy and paste content of lirc file into the left box and hit convert.
+ </p>
+ 
+ 
+  <script>
+// add util js functions to string object
+
+  function convertButtonLabel(label){
+    
+    var retValue = label;
+    var altLabel = "\" alt=\"" + label;
+  
+        if(label == 'REW' || label == '\<\<'){ retValue =  '&#xf04a;'; } 
+        if(label == 'FWD' || label == '\>\>'){ retValue =  '&#xf04e;'; }
+        if(label == 'PLAY'){ retValue =  '&#xf04b;'; }
+        if(label == 'STOP'){ retValue =  '&#xf04d;'; }
+        if(label == 'PAUSE'){ retValue =  '&#xf04c;'; }
+        if(label == 'REC'){ retValue =  '&#xf111;'; }
+        if(label == 'RECORD'){ retValue =  '&#xf111;'; }
+        if(label == 'PREV' || label == '\|\<\<'){ retValue =  '&#xf049;'; } 
+        if(label == 'NEXT' || label == '\>\>\|'){ retValue =  '&#xf050;'; }
+        if(label == 'EJECT'){ retValue =  '&#xf052;'; }
+        if(label == 'OPEN/CLOSE'){ retValue =  '&#xf052;'; }
+
+        if(label == 'POWER'){ retValue =  '&#xf011;'; }
+        
+        if(label == 'UP'){ retValue =  '↑'; }
+        if(label == 'LEFT'){ retValue =  '←'; }
+        if(label == 'RIGHT'){ retValue =  '→'; }
+        if(label == 'DOWN'){ retValue =  '↓'; }
+        
+        if(retValue != label) {
+            return  retValue + altLabel;
+        } else {
+        return label; 
+     }
+ }
+ 
+ 
+if (typeof String.prototype.startsWith != 'function') {
+	String.prototype.startsWith = function (str){
+		return this.indexOf(str) == 0;
+	};
+}
+if (!String.prototype.contains) {
+	String.prototype.contains = function (arg) {
+		return !!~this.indexOf(arg);
+	};
+}
+function $(id){
+	return document.getElementById(id);
+}
+function doConversion(){
+	var lirc_input = $('lirc_input');
+	var input = lirc_input.value;
+	var sb = [];
+	var buttons = [];
+	var lines = $('lirc_input').value.split('\n');
+	var current_raw_label = "";
+	var current_raw_code = "";
+	// variables to be set
+	var FORMAT = "WINLIRC_NEC1";
+	var PRE_DATA = "";
+	var GAP_PULSE = "";
+	var GAP_SPACE = "";
+	var REPEAT = "";
+	var ONE_SPACE = "";
+	var ONE_PULSE = "";
+	var ZERO_PULSE = "";
+	var ZERO_SPACE = "";
+	var HEADER_SPACE = "";
+	var HEADER_PULSE = "";
+	var BITS = "";
+	var PRE_BITS = "";
+	var TOGGLE_BIT_POS = "";
+	
+	var reading_raw_code = false;
+	var reading_codes = false; 
+	for(var i = 0;i < lines.length;i++){
+		var trimmedLine = lines[i].trim().replace('\t', ' ').replace(/\s{2,}/g, ' ');
+		//ignore comments
+		if(trimmedLine.startsWith("#") || trimmedLine === ""){
+			continue;
+		}
+		//start reading codes or header? 
+		if(trimmedLine.startsWith('begin codes') || trimmedLine.startsWith('begin raw_codes')){
+			reading_codes = true;
+			continue;
+		}
+		if(trimmedLine.startsWith('end codes') || trimmedLine.startsWith('end raw_codes')){
+			if(current_raw_code !== ""){
+				buttons.push("\t\t<button label=\""+current_raw_label+"\" labelColor=\"FF000000\" labelSize=\"12.0\" backgroundColor=\"FFFFFFFF\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
+			}
+			reading_codes = false;
+			continue;
+		}
+		//consider only header
+		if(reading_codes == false){
+			if(trimmedLine.startsWith('name')){
+			}
+			if(trimmedLine.startsWith('bits')){
+				BITS = trimmedLine.split(' ')[1];
+				if(PRE_BITS === ""){
+					PRE_BITS = trimmedLine.split(' ')[1];
+				}
+			}
+			if(trimmedLine.startsWith('pre_data_bits')){
+				PRE_BITS = trimmedLine.split(' ')[1];
+			}
+			if(trimmedLine.startsWith('flags')){
+				if(trimmedLine.contains("RC5")){
+					FORMAT = "WINLIRC_RC5";
+				}
+				if(trimmedLine.contains("RC6")){
+					FORMAT = "WINLIRC_RC6";
+				}
+				if(trimmedLine.contains("RAW_CODES")){
+					FORMAT = "WINLIRC_RAW";
+				}
+				if(trimmedLine.contains("SPACE_ENC")){
+					FORMAT = "WINLIRC_SPACEENC";
+				}
+				continue;
+			}
+			if(trimmedLine.startsWith('header')){
+				HEADER_PULSE = trimmedLine.split(' ')[1];
+				HEADER_SPACE = trimmedLine.split(' ')[2];
+				continue;
+			}
+			if(trimmedLine.startsWith('one')){
+				ONE_PULSE = trimmedLine.split(' ')[1];
+				ONE_SPACE = trimmedLine.split(' ')[2];
+				continue;
+			}
+			if(trimmedLine.startsWith('zero')){
+				ZERO_PULSE = trimmedLine.split(' ')[1];
+				ZERO_SPACE = trimmedLine.split(' ')[2];
+				continue;
+			}
+			if(trimmedLine.startsWith('pre_data')){
+				PRE_DATA = trimmedLine.split(' ')[1];
+				continue;
+			}
+			if(trimmedLine.startsWith('ptrail')){
+
+			}
+			if(trimmedLine.startsWith('gap')){
+				if(GAP_PULSE === ""){
+					GAP_PULSE = 1;
+				}
+				GAP_SPACE = trimmedLine.split(' ')[1];
+				continue;
+			}
+			if(trimmedLine.startsWith('ptrail')){
+				GAP_PULSE = trimmedLine.split(' ')[1];
+				continue;
+			}
+			if(trimmedLine.startsWith('min_repeat')){
+				var intRepeat = parseInt(trimmedLine.split(' ')[1])+1;
+				REPEAT =  intRepeat;
+				continue;
+			}
+			if(trimmedLine.startsWith('frequency')){
+				continue;
+			}
+			if(trimmedLine.startsWith('toggle_bit')){
+				var toggleBitPos = parseInt(trimmedLine.split(' ')[1]);
+				TOGGLE_BIT_POS = toggleBitPos;
+				continue;
+			}
+		}
+		if(reading_codes){
+			// ignore comment lines
+			if(!trimmedLine.startsWith('#')){
+				if(trimmedLine.startsWith('name ')){
+					// a new button has started and there was a previous one read
+					 
+					if(current_raw_code !== ""){
+						buttons.push("\t\t<button label=\""+convertButtonLabel(current_raw_label)+"\" labelColor=\"FFFFFFFF\" labelSize=\"12.0\" backgroundColor=\"FF444444\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
+					}
+					//reset current raw code
+					
+					var secondWordLabel = trimmedLine.split(" ")[2];
+					
+					current_raw_label = trimmedLine.split(" ")[1];
+					
+					if(secondWordLabel != undefined){
+						current_raw_label = current_raw_label + " " + secondWordLabel;
+					}
+					
+					current_raw_code = "";
+				    reading_raw_code = true;
+					continue;
+				}
+				if(reading_raw_code == false){
+					var label = "";
+					var code = "";
+					if(PRE_DATA !== ""){
+						code = PRE_DATA + " ";
+					}
+					var splitLine = trimmedLine.split(" ");
+					if(splitLine.length == 2){
+						label = splitLine[0];
+						code = code + splitLine[1];
+					}
+					if(splitLine.length > 2){
+					   for(var i = 0; i < splitLine.length-1; i++){
+						label = label + " " + splitLine[i];
+					   }
+						code = code + splitLine[splitLine.length-1];
+					}
+					if(splitLine.length == 5){
+						label = splitLine[4];
+						code = code + splitLine[1];
+					}
+					label = label.replace("KEY_", "").toUpperCase();
+					buttons.push("\t\t<button label=\""+convertButtonLabel(label)+"\" labelColor=\"FFFFFFFF\" labelSize=\"12.0\" backgroundColor=\"FF444444\" span=\"4\">"+code+"</button>\r\n");
+				}
+				if(reading_raw_code){
+					 var splitLine = trimmedLine.split(" ");
+					 for(var j = 0; j < splitLine.length; j++){
+						current_raw_code = current_raw_code + splitLine[j] + " ";
+					 }
+					 
+				}
+			}
+			continue;
+		}
+	}
+
+	sb.push("<irplus>\r\n");
+	sb.push("\t<device manufacturer=\"MANUFACTURER\" model=\"MODEL\" columns=\"12\" format=\""+FORMAT+"\"");
+
+	sb.push(" bits=\""+BITS+"\"");
+	sb.push(" pre-bits=\""+PRE_BITS+"\"");
+	
+	sb.push(" toggle-bit-pos=\""+TOGGLE_BIT_POS+"\"");
+
+	sb.push(" gap-pulse=\""+GAP_PULSE+"\"");
+	sb.push(" gap-space=\""+GAP_SPACE+"\"");
+
+	sb.push(" one-pulse=\""+ONE_PULSE+"\"");
+	sb.push(" one-space=\""+ONE_SPACE+"\"");
+
+	sb.push(" zero-pulse=\""+ZERO_PULSE+"\"");
+	sb.push(" zero-space=\""+ZERO_SPACE+"\"");
+
+	if(HEADER_PULSE !== "" ){
+		sb.push(" header-pulse=\""+HEADER_PULSE+"\"");
+	}
+	if(HEADER_SPACE !== "" ){
+		sb.push(" header-space=\""+HEADER_SPACE+"\"");
+	}
+	if(REPEAT !== "" ){
+		sb.push(" repeat=\""+REPEAT+"\"");
+	}
+
+	sb.push(">\r\n");
+
+	for(var j = 0; j < buttons.length; j++){
+		sb.push(buttons[j]);
+	}
+
+	sb.push("\t</device>\r\n");
+	sb.push("</irplus>\r\n");
+
+	var irp_output = $('irp_output');
+	irp_output.value = sb.join("");
+
+}
+
+ 
+</script>
+ 
+</body>
+</html>
