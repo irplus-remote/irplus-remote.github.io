@@ -1,7 +1,69 @@
 <h2 class="content-subhead">Read codes with Raspbian on Raspberry Pi </h2>    
   	 <p>
-          This is the new guide which you can follow if you have a brand new Raspberry Pi with Raspbian installed. (2015)
+          This is the new guide which you can follow if you have a brand new Raspberry Pi with Raspbian 3.18.x firmware insatlled.
+          It's really easy and the recommended way.
 	</p>
-			
+	
+	
+	
+		<p>
+	        Attach the IR-Receiver to the GPIO18 (PIN12) pin, to 3.3V (PIN1), if unreliable try 5V (PIN2), and any GND (e.g. PIN 14)
+	        The pin-out varies by IR-Receiver, read the documentation or datasheet of your receiver.
+		</p>
+		
+	
+		<p>
+	        Install lirc package:
+		</p>
+		
+		<div style="font-family: 'Courier New'">
+				sudo apt-get install lirc
+		 </div>
+				 
+	 	<p>
+	        Enable lirc-rpi module:  
+	     </p>		
+		<div style="font-family: 'Courier New'">
+				sudo nano /boot/config.txt
+		 </div>
+		 
+		 	<p>
+	        Change...
+		</p>
+		 
+		 <div style="font-family: 'Courier New'">
+				#dtoverlay=lirc-rpi
+		 </div>
+		 
+		 	<p>
+	        to...
+		</p>
+		
+		<div style="font-family: 'Courier New'">
+				dtoverlay=lirc-rpi
+		 </div>
+		 
+		 	<p>
+	        Reboot raspbian...
+		</p>
+		 
+		 
+		 <div style="font-family: 'Courier New'">
+				sudo reboot
+		 </div>
+		 
+		 
+		 	 
+		 <p>
+	        Check if lirc is working by trying to receive data...
+		</p>
+		 
+		 
+		 <div style="font-family: 'Courier New'">
+				mode2 -d /dev/lirc0
+		 </div>
+		 
+		 
+		 
 	 
  
