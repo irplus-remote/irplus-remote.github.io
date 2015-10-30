@@ -198,7 +198,7 @@
 			</pre></code>
 			
 			
-			<h2 class="content-subhead">Full XML specification</h2>
+			<h2 class="content-subhead">Full XML specification (based on Version 1.7.0+)</h2>
             <p>
             	 device Tag
 			</p>
@@ -255,36 +255,44 @@
 					<tr>
 						<th>Property</th>
 						<th>Description</th>
+						<td>Validity</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>label</td>
 						<td>The label for this button. Can be Unicode (including FontAwesome range)</td>
+						<td>Mandatory, but can be empty for special uses</td>
 					</tr>
 					<tr>
 						<td>labelColor</td>
 						<td>The color for the label in AARRGGBB notation (example FFAA88CC)</td>
-					</tr>
-					<tr>
-						<td>labelSize</td>
-						<td>The size for the label in float dp. Will be adjusted to device's pixel density</td>
+						<td>Optional, default will be FFFFFFFF (White)</td>
 					</tr>
 					<tr>
 						<td>backgroundColor</td>
 						<td>The background color for the button in AARRGGBB notation (example FFAA88CC)</td>
+						<td>Optional, default will be FF444444 (Dark Gray)</td>
+					</tr>
+					<tr>
+						<td>labelSize</td>
+						<td>The size for the label in float dp. Will be adjusted to device's pixel density</td>
+						<td>Optional, when not used the label size will be dynamically set depending on the label length</td>
 					</tr>
 					<tr>
 						<td>span</td>
 						<td>Specifies how many columns (see device columns) this button should take</td>
+						<td>Optional, if not set span will be 1. If you do not set this make sure the column property is reasonably sized</td>
 					</tr>
 					<tr>
 						<td>bitmap</td>
 						<td>A bitmap encoded in Base64 which will be shown on the button. It is recommended to use a transparent background, as it is rendered on top of the regular background.</td>
+						<td>Optional, use empty label and labelSize="0"" if you don't want the default text next to the image</td>
 					</tr>
 					<tr>
 						<td>bitmapHeight</td>
 						<td>Specifies the bitmap height in dp. The width will be automatically set to preserve the aspect ratio.</td>
+						<td>Optional, else the bitmap height in px will be used</td>
 					</tr>
 				</tbody>
 			</table>
