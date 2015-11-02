@@ -125,7 +125,7 @@ function doConversion(){
 		}
 		if(trimmedLine.startsWith('end codes') || trimmedLine.startsWith('end raw_codes')){
 			if(current_raw_code !== ""){
-				buttons.push("\t\t<button label=\""+current_raw_label+"\" labelColor=\"FF000000\" labelSize=\"12.0\" backgroundColor=\"FFFFFFFF\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
+				buttons.push("\t\t<button label=\""+current_raw_label+"\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
 			}
 			reading_codes = false;
 			continue;
@@ -212,7 +212,7 @@ function doConversion(){
 					// a new button has started and there was a previous one read
 					 
 					if(current_raw_code !== ""){
-						buttons.push("\t\t<button label=\""+convertButtonLabel(current_raw_label)+"\" labelColor=\"FFFFFFFF\" labelSize=\"12.0\" backgroundColor=\"FF444444\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
+						buttons.push("\t\t<button label=\""+convertButtonLabel(current_raw_label)+"\" span=\"4\">"+current_raw_code.trim()+"</button>\r\n");
 					}
 					//reset current raw code
 					
@@ -250,7 +250,7 @@ function doConversion(){
 						code = code + splitLine[1];
 					}
 					label = label.replace("KEY_", "").toUpperCase();
-					buttons.push("\t\t<button label=\""+convertButtonLabel(label)+"\" labelColor=\"FFFFFFFF\" labelSize=\"12.0\" backgroundColor=\"FF444444\" span=\"4\">"+code+"</button>\r\n");
+					buttons.push("\t\t<button label=\""+convertButtonLabel(label)+"\" span=\"4\">"+code+"</button>\r\n");
 				}
 				if(reading_raw_code){
 					 var splitLine = trimmedLine.split(" ");
