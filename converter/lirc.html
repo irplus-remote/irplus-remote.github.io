@@ -46,6 +46,7 @@
     var retValue = label;
     var altLabel = "\" alt=\"" + label;
   
+        if(label == 'REV' || label == '\<\<'){ retValue =  '&#xf04a;'; } 
         if(label == 'REW' || label == '\<\<'){ retValue =  '&#xf04a;'; } 
         if(label == 'FWD' || label == '\>\>'){ retValue =  '&#xf04e;'; }
         if(label == 'PLAY'){ retValue =  '&#xf04b;'; }
