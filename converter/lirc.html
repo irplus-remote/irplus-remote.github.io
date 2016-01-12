@@ -66,6 +66,11 @@
         if(label == 'RIGHT'){ retValue =  '→'; }
         if(label == 'DOWN'){ retValue =  '↓'; }
         
+        if(label == 'RED'){ retValue =  'R'; }
+        if(label == 'GREEN'){ retValue =  'G'; }
+        if(label == 'YELLOW'){ retValue =  'Y'; }
+        if(label == 'BLUE'){ retValue =  'B'; }
+        
         if(retValue != label) {
             return  retValue + altLabel;
         } else {
@@ -114,7 +119,7 @@ function doConversion(){
 	var reading_raw_code = false;
 	var reading_codes = false; 
 	for(var i = 0;i < lines.length;i++){
-		var trimmedLine = lines[i].trim().replace('\t', ' ').replace(/\s{2,}/g, ' ');
+		var trimmedLine = lines[i].trim().replace(/\t/g, ' ').replace(/\s\s+/g, ' ');
 		//ignore comments
 		if(trimmedLine.startsWith("#") || trimmedLine === ""){
 			continue;
