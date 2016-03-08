@@ -9,9 +9,10 @@
               You can do basic edits inside the app. See the video below for some inspiration.
 			</p>
 			
+			  
 			 <iframe width="500" height="480"
-				src="https://www.youtube.com/embed/zwC31Sc_SIQ?autoplay=1">
-				</iframe>
+				src="https://www.youtube.com/embed/zwC31Sc_SIQ?autoplay=0">
+			 </iframe> 
 			
 			 <h2 class="content-subhead">2. via XML</h2>
             <p>
@@ -198,7 +199,7 @@
 			</pre></code>
 			
 			
-			<h2 class="content-subhead">Full XML specification (based on Version 1.7.0+)</h2>
+			<h2 class="content-subhead">Full XML specification (Updated March 2016)</h2>
             <p>
             	 device Tag
 			</p>
@@ -208,7 +209,7 @@
 					<tr>
 						<th>Property</th>
 						<th>Description</th>
-						<td>Validity</td>
+						<th>Validity</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -233,17 +234,79 @@
 						<td>Mandatory</td>
 					</tr>
 					<tr>
-						<td>bits</td>
-						<td>The command bits</td>
-						<td>Mandatory for formats: WINLIRC_SPACEENC</td>
+						<td>&lt;modifiers&gt;</td>
+						<td>Depending on the format there are several modifiers available</td>
+						<td>See the next table</td>
 					</tr>
-					<tr>
-						<td>pre-bits</td>
-						<td>The device bits</td>
-						<td>Mandatory for formats: WINLIRC_SPACEENC</td>
-					</tr>
+					 
 				</tbody>
 			</table>
+			
+			
+			
+			  <p>
+            	 Supported formats for the device tag
+			</p>
+			
+				 <table class="pure-table">
+				<thead>
+					<tr>
+						<th>Format</th>
+						<th>Description</th>
+						<th>Modifiers</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>WINLIRC_RAW</td>
+						<td>This is the simplest of all formats, it just describes on-off timing of IR LED in ms</td>
+						<td>frequency,repeat,repeatgap</td>
+					</tr>
+					<tr>
+						<td>PRONTO_HEX</td>
+						<td>Philips Pronto format</td>
+						<td>repeat</td>
+					</tr>
+					<tr>
+						<td>WINLIRC_RC5</td>
+						<td>The lirc notation for RC5</td>
+						<td>repeat, bits, pre-bits</td>
+					</tr>
+					<tr>
+						<td>WINLIRC_RC6</td>
+						<td>The lirc notation for RC6</td>
+						<td>repeat, bits, pre-bits</td>
+					</tr>
+					<tr>
+						<td>DENON_K_BINARY</td>
+						<td>Denon Kaseyko format found in official PDF codelist</td>
+						<td>todo</td>
+					</tr>
+					<tr>
+						<td>DENON_BINARY</td>
+						<td>Denon Sharp format found in official PDF codelist</td>
+						<td>todo</td>
+					</tr>
+					<tr>
+						<td>YAMAHA_NEC_HEX</td>
+						<td>Yamaha NEC format found official service manual</td>
+						<td>todo</td>
+					</tr>
+					<tr>
+						<td>WINLIRC_NEC1</td>
+						<td>LIRC notation for standard NEC protocol</td>
+						<td>todo</td>
+					</tr>
+					<tr>
+						<td>WINLIRC_NECx1</td>
+						<td>LIRC notation for a variation of NEC protocol. Different header and outro. Often used by Samsung.</td>
+						<td>todo</td>
+					</tr>
+				 
+				</tbody>
+			</table>
+			
+			
 			
 			
 			 <p>
@@ -255,7 +318,7 @@
 					<tr>
 						<th>Property</th>
 						<th>Description</th>
-						<td>Validity</td>
+						<th>Validity</th>
 					</tr>
 				</thead>
 				<tbody>
