@@ -254,53 +254,63 @@
 						<th>Format</th>
 						<th>Description</th>
 						<th>Modifiers</th>
+						<th>Example</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>WINLIRC_RAW</td>
-						<td>This is the simplest of all formats, it just describes on-off timing of IR LED in ms</td>
+						<td>This is the simplest of all formats, it just describes on-off timing of IR LED in ms.</td>
 						<td>frequency,repeat,repeatgap</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>PRONTO_HEX</td>
-						<td>Philips Pronto format</td>
+						<td>Philips Pronto. It describes the sequence as bursts and includes the carrier frequency.</td>
 						<td>repeat</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>WINLIRC_RC5</td>
-						<td>The lirc notation for RC5</td>
+						<td>LIRC notation for RC5. The carrier frequency is hardcoded to 36000Hz for this.</td>
 						<td>repeat, bits, pre-bits</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>WINLIRC_RC6</td>
-						<td>The lirc notation for RC6</td>
-						<td>repeat, bits, pre-bits</td>
+						<td>LIRC notation for RC6 or MCE</td>
+						<td>frequency, repeat, repeatheader, bits, pre-bits, toggle-bit-type, toggle-bit-pos, gap-space</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>DENON_K_BINARY</td>
 						<td>Denon Kaseyko format found in official PDF codelist</td>
-						<td>todo</td>
+						<td>-</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>DENON_BINARY</td>
 						<td>Denon Sharp format found in official PDF codelist</td>
-						<td>todo</td>
+						<td>-</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>YAMAHA_NEC_HEX</td>
 						<td>Yamaha NEC format found official service manual</td>
-						<td>todo</td>
+						<td>-</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>WINLIRC_NEC1</td>
 						<td>LIRC notation for standard NEC protocol</td>
-						<td>todo</td>
+						<td>frequency, repeat, repeatheader, bits, pre-bits</td>
+						<td>x</td>
 					</tr>
 					<tr>
 						<td>WINLIRC_NECx1</td>
 						<td>LIRC notation for a variation of NEC protocol. Different header and outro. Often used by Samsung.</td>
-						<td>todo</td>
+						<td>frequency, repeat, repeatheader, bits, pre-bits</td>
+						<td>x</td>
 					</tr>
 				 
 				</tbody>
