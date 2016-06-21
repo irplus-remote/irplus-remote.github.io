@@ -9,6 +9,12 @@ https://irplus-remote.github.io
 [RELEASE NOTES]
 irplus / irplus WAVE
 
+1.8.3. DB Update / Maintenance / bugs fixed / Added timer feature
+
+1.8.2. DB Update / Maintenance / Bugfix release
+ 
+1.8.1. Maintenance release / Bugfixes / DB Improvements
+
 1.8.0. Room management! This should improve the usability when using many devices, Update database, Added optional sound feedback after sending a code, Added minimum widget size - this should help some launchers to resize them.
 
 1.7.9. Added new devices, Fixed some Force Closes, Pause between macros can now be set manually in ms. If you encounter any issues feel free to contact me or post in the issue tracker.
@@ -25,7 +31,5 @@ And lastly, If you encounter any issues - please report them :)
 1.7.4. DB Update, some translation errors fixed
 
 1.7.3. DB Update and some theme / translation errors fixed
-
-1.7.2. Minor fixes, DB Update, Added Polish Language, Added a new Theme, Status bar on Android 5 is colored
 
 older: Not logged anymore for simplicity. If you are using an older version please upgrade ASAP.
