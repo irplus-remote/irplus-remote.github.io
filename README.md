@@ -9,6 +9,10 @@ https://irplus-remote.github.io
 [RELEASE NOTES]
 irplus / irplus WAVE
 
+1.8.5: DB Update / minor bugs fixed / Renaming device will keep macros working / Added a new theme  
+
+1.8.4: DB Update / minor bugs fixed
+
 1.8.3. DB Update / Maintenance / bugs fixed / Added timer feature
 
 1.8.2. DB Update / Maintenance / Bugfix release
