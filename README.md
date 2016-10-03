@@ -9,6 +9,8 @@ https://irplus-remote.github.io
 [RELEASE NOTES]
 irplus / irplus WAVE
 
+1.8.6: DB Update / minor bugs fixed / Google Talkback Support for the most commonly used Icons
+
 1.8.5: DB Update / minor bugs fixed / Renaming device will keep macros working / Added a new theme  
 
 1.8.4: DB Update / minor bugs fixed
@@ -31,9 +33,5 @@ irplus / irplus WAVE
 And lastly, If you encounter any issues - please report them :)
 
 1.7.5. Some internal changes to improve reaction time of buttons, DB update, Minor design changes, Support for some LG phones fixed
-
-1.7.4. DB Update, some translation errors fixed
-
-1.7.3. DB Update and some theme / translation errors fixed
 
 older: Not logged anymore for simplicity. If you are using an older version please upgrade ASAP.
