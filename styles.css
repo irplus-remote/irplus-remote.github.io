@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+html {
+    overflow-y: scroll;
+}
+body {
+    margin: 0;
+    font-family: 'Nunito', cursive;
+    background: #ffffff;
+}
+
+a {
+    color: #008fb3;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+input {
+    font-family: 'Nunito', cursive;
+    outline: none;
+    border: 1px solid #008fb3;
+    box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+input[type=button] {
+    background: none;
+}
+
+pre {
+   white-space: pre-wrap;
+   text-align: left;
+   border: 1px solid gray;
+   color: gray;
+}
+
+table {
+    border-collapse: collapse;
+    /*width: 100%;*/
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+  
+}
+
+th {
+    white-space: nowrap;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+/*
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+*/
+
+.header {
+    font-size: 30px;
+    position: fixed;
+}
+
+.footer {
+    background-color: #f2f2f2;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    color: #008fb3;
+    text-align: center;
+    font-size: 11px;
+    border-top: 1px solid #008fb3;
+}
+
+.commonContent {
+    border-bottom: 0px solid #008fb3;
+    text-align: center;
+    color: #008fb3;
+    
+}
+
+.contentDiv {
+    text-align: center;
+    background: transparent;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-left: 35px;
+    margin-right: 35px;
+    color: #008fb3;
+}
+.contentHeader {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin: 20px;
+}
+.contentParagraph {
+    margin: 20px;
+    display: block;
+}
+
+.bashCmd {
+    font-family: Courier;
+    color: gray;
+}
+
+.clickableImg {
+    cursor: pointer;
+}
+
+.topnavspacer {
+    height: 55px;
+}
+
+.topnav {
+    background-color: #f2f2f2;
+    overflow: hidden;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    border-bottom: 1px solid #008fb3;
+}
+
+.topnav a {
+    cursor: pointer;
+    display: inline-block;
+    color: #008fb3;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #008fb3;
+    color: #f4f5e9;
+}
+
+.topnavActive {
+    background-color: #008fb3 !important;
+    color: #f4f5e9 !important;
+}
+
+.topnav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .topnav a:not(:first-child) {
+        display: none;
+    }
+    .topnav a.icon {
+        float: right;
+        display: block;
+        margin-left: -47px;
+    }
+    .commonContent {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .topnav.responsive {
+        position: relative;
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+    }
+    .topnav.responsive a.icon {
+        color: #f4f5e9;
+    }
+}
