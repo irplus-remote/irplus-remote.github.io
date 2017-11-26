@@ -67,14 +67,17 @@ $(document).ready(function() {
         if(hash === "#audio"){
             pagetoshow = 4;
         }
-        if(hash === "#trouble"){
+        if(hash === "#network"){
             pagetoshow = 5;
         }
-        if(hash === "#beta"){
+        if(hash === "#trouble"){
             pagetoshow = 6;
         }
-        if(hash === "#contact"){
+        if(hash === "#beta"){
             pagetoshow = 7;
+        }
+        if(hash === "#contact"){
+            pagetoshow = 8;
         }
     }
     

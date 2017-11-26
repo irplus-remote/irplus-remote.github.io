@@ -21,7 +21,8 @@
         <a class="topnavanchor">New codes</a>
         <a class="topnavanchor">Layout</a>
         <a class="topnavanchor">Infrared?</a>
-        <a class="topnavanchor">No IR port?</a>
+        <a class="topnavanchor">No IR? (Audio)</a>
+        <a class="topnavanchor">No IR? (LAN)</a>
         <a class="topnavanchor">Troubleshooting</a>
         <a class="topnavanchor">Beta</a>
         <a class="topnavanchor">Contact</a>
@@ -203,8 +204,22 @@
         <br>
         <span class="bashCmd">bits 16
             <br>flags SPACE_ENC|CONST_LENGTH
-            <br>eps 30<br>aeps 100<br>header 9176 4407<br>one 679 1581<br>zero 679 452<br>ptrail 686<br>repeat 9173 2138<br>pre_data_bits 16<br>pre_data
-            0x10EF<br>gap 108572<br>toggle_bit_mask 0x0<br>begin codes<br>mute 0x6897<br>pwr 0x7887<br>av 0x807F<br>tv/rad 0x2AD5</span>
+            <br>eps 30
+            <br>aeps 100
+            <br>header 9176 4407
+            <br>one 679 1581
+            <br>zero 679 452
+            <br>ptrail 686
+            <br>repeat 9173 2138
+            <br>pre_data_bits 16
+            <br>pre_data 0x10EF
+            <br>gap 108572
+            <br>toggle_bit_mask 0x0
+            <br>begin codes
+            <br>mute 0x6897
+            <br>pwr 0x7887
+            <br>av 0x807F
+            <br>tv/rad 0x2AD5</span>
         <br> Congratulations! You have successfully read the codes of your remote!
         <br> Advanced Information: One / Zero / Header determines how many time passes during your remote does to represent a
         logical state. Example: If we could see the remote’s infrared light we would see a “1” represented by 679µs of ir-light
@@ -242,9 +257,9 @@
 
         <br>
 
-        <img src="images/rasbgpiolirc.jpg" style="width: 239px; height: 407px;"></img>    
+        <img src="images/rasbgpiolirc.jpg" style="width: 239px; height: 407px;"></img>
         <img src="images/irdiode_names.jpg" style="width: 239px; height: 407px;"></img>
-    
+
 
         <br> Install lirc (Debian-based OS use apt-get and arch-based OS use pacman, for arch do not add sudo to all commands):
         <br>
@@ -809,6 +824,95 @@
         <i class="fa fa-android" aria-hidden="true" style="margin-right: 5px" ;></i>
         <a href="https://play.google.com/store/apps/details?id=net.binarymode.android.irpluswave" target="_blank">irplus WAVE on PlayStore</a>
     </div>
+    <div class="contentDiv">
+        <span class="contentHeader">irplus LAN</span>
+        irplus LAN This is a spin-off app of the original for sending custom infrared codes via a network (LAN/WLAN). It has all
+        the same features, but instead of using the IR-blaster it will send the IR-sequence over network (via plain HTTP) to a server which
+        will do the job of processing and sending them as IR-light. Sounds cool? So you can make use of the app even when
+        using a phone without IR-blaster. Although there is a small catch. You need to setup a server to process the signal.
+        The process will be described here.
+        <span class="contentHeader">Prepare the hardware</span>
+        First you'll need a server obviously. For the sake of simplicity
+        this guide will be described using a Raspberry Pi 2, as it offers a GPIO port which does the job without complex
+        circuits. However you can try to setup the server on other platforms as well. Hardware IR transmitter (LED). Note
+        the electric current of the LED I<sub>f</sub> in <i>A</i>. This is needed to calculate a proper R. Resistor for avoiding to fry the IR-LED. Apply the formula
+        R = <sup>U</sup>/<sub>I</sub> to calculate it. Some cables to connect it to the GPIO. If you use a standard PC you should use a Serial IR transmitter circuit.
+        <span class="contentHeader">Software requirements</span>
+        This may vary and can be modified to
+        personal preference. In this section i'll be covering the setup for the Raspberry Pi Software A Linux based operating
+        system. I've been using OSMC, as i use the Raspberry Pi mostly with this OS attached to my TV. So it's also at the
+        perfect position to send IR.
+        
+        <table>
+                <thead>
+                    <tr>
+                        <th>Software used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Raspbian for Raspberry (Personal preference)</td>
+                    </tr>
+                    <tr>
+                        <td><a href="http://abyz.me.uk/rpi/pigpio/" target="_blank">pigpio C library for GPIO</a></td>
+                    </tr>
+                    <tr>
+                        <td>Python 2.x</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        This environment will be used
+        to create the web-server the commands will be sent to and also to send the IR. On many distributions you'll find
+        it already there if not just install the python package with the package manager. (apt-get install python). Basically
+        this can be done in other programming languages as well, but i'll provide the code for Python, as i thought it was
+        the easiest way to do it. If you like to contribute, i'd be happy to include tutorials for other programming languages as well.
+        <span class="contentHeader">Start the server</span>
+        After fulfilling the requiremets you can download the server script and
+        start it. Please make sure to modify the listed variables to match your hardware. Variables The GPIO Port where the
+        IR-LED is connected to. I'll be using GPIO 17. Make sure you're using a 3.3V Pin! Modify this line accordingly: 
+        
+        <br><br>
+        <span class="bashCmd">tx = GPIOIRTransmission(pi, 17, query_carrier[0])</span>
+        <br><br>
+        
+        The network interface and port. Basically, just make sure your server
+        is not accessible from outside your local LAN. And setup firewall properly if you don't want others to change your
+        TV channels ;-). Adapt to your IP and Port:
+        
+        <br><br>
+        <span class="bashCmd">server = HTTPServer(('0.0.0.0', 8080), GetHandler)</span>
+        <br><br>
+        
+        Download the Python Server Script Start the server
+        by calling:
+        
+        <br><br>
+        <span class="bashCmd">nohup python irplus.py &amp;</span>
+        <br><br>
+
+        If you want to kill it call this in your browser:
+        <br><br>
+        <span class="bashCmd">http://192.168.1.104:8080?command=kill</span>
+        <br> 
+
+        <span class="contentHeader">Setup in the App</span>
+        Setup in the App To setup enter the URL with the port into the App Setting. 
+         
+        <span class="contentHeader">Specification of request</span>
+        Specification of request The requests for IR-signals are made up like this and can be sent from other
+        applications or the web-browser as well if you have the raw IR code.
+        
+        
+        <br><br>
+        <span class="bashCmd">http://192.168.1.104:8080/?carrier=38000&amp;code=9000+4500+1200+600</span>
+        <br> 
+        
+        <span class="contentHeader">Room for improvement</span>
+        Find a way to send modulated IR signals without using a native C library. Probably will be hard...
+        Update the server code to Python3 Provide alternative means to process the requests. E.g. Nodejs, Java etc.
+    </div>
+
     <div class="contentDiv">
         <span class="contentHeader">Common errors...</span>
         <span class="contentParagraph">Make sure your phone has a compatible infrared blaster (an IR LED) - without this it can't work! Alternatively use
