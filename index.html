@@ -21,8 +21,9 @@
         <a class="topnavanchor">New codes</a>
         <a class="topnavanchor">Layout</a>
         <a class="topnavanchor">Infrared?</a>
-        <a class="topnavanchor">No IR? (Audio)</a>
-        <a class="topnavanchor">No IR? (LAN)</a>
+        <a class="topnavanchor">Audio → IR</a>
+        <a class="topnavanchor">WiFi → IR</a>
+        <a class="topnavanchor">Bluetooth → IR</a>
         <a class="topnavanchor">Troubleshooting</a>
         <a class="topnavanchor">Beta</a>
         <a class="topnavanchor">Contact</a>
@@ -836,7 +837,7 @@
     </div>
     <div class="contentDiv">
         <span class="contentHeader">irplus LAN</span>
-        irplus LAN This is a spin-off app of the original for sending custom infrared codes via a network (LAN/WLAN). It has all
+        irplus LAN This is a spin-off app of the original for sending custom infrared codes via a WiFi or Bluetooth. It has all
         the same features, but instead of using the IR-blaster it will send the IR-sequence over network (via plain HTTP) to a server which
         will do the job of processing and sending them as IR-light. Sounds cool? So you can make use of the app even when
         using a phone without IR-blaster. Although there is a small catch. You need to setup a server to process the signal.
@@ -924,6 +925,29 @@
         Find a way to send modulated IR signals without using a native C library. Probably will be hard...
         Update the server code to Python3 Provide alternative means to process the requests. E.g. Nodejs, Java etc.
     </div>
+
+    <div class="contentDiv">
+        <span class="contentHeader">irplus LAN via Bluetooth</span>
+        irplus LAN This is a spin-off app of the original for sending custom infrared codes via a WiFi or Bluetooth. It has all
+        the same features, but instead of using the IR-blaster it will send the IR-sequence over network (via plain HTTP) to a server which
+        will do the job of processing and sending them as IR-light. Sounds cool? So you can make use of the app even when
+        using a phone without IR-blaster. Although there is a small catch. You need to setup a server to process the signal.
+        The process will be described here.
+        <span class="contentHeader">Prepare the hardware</span>
+        For this guide we will use an Arduino Uno with a Bluetooth HC-05 serial module. The infrared LED with a Resistor on it's voltage pin will be attached to a PWM pin and GND.
+    
+        <span class="contentHeader">Software on Arduino</span>
+        <a href="scripts/irplusarduino.ino" target="_blank">Download the C (*.ino) sketch for Arduino</a>
+        <br>
+        1. Upload the script to your Arduino
+        <br>
+        2. Pair your Android with the HC-05 Bluetooth module (Password: 1234). Note the HC-05 should be in 9600 baud default mode.
+        <br>
+        3. Now start/restart irplusLAN and select the HC-05 Bluetooth module in the App's settings.
+        <br>
+        4. If you press a button on irplusLAN the app will transmit the signal to Arduino via Bluetooth and Arduino will send the IR signal.
+
+   </div>
 
     <div class="contentDiv">
         <span class="contentHeader">Common errors...</span>

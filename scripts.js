@@ -70,14 +70,17 @@ $(document).ready(function() {
         if(hash === "#network"){
             pagetoshow = 5;
         }
-        if(hash === "#trouble"){
+        if(hash === "#bluetooth"){
             pagetoshow = 6;
         }
-        if(hash === "#beta"){
+        if(hash === "#trouble"){
             pagetoshow = 7;
         }
-        if(hash === "#contact"){
+        if(hash === "#beta"){
             pagetoshow = 8;
+        }
+        if(hash === "#contact"){
+            pagetoshow = 9;
         }
     }
     
