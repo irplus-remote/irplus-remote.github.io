@@ -1,0 +1,367 @@
+<p class="lead">
+    Customize a remote layout
+</p>
+
+<p>
+    <div class="accordion" id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        1. via app user interface
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <p>You can do basic edits inside the app. See the video below for some inspiration.</p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zwC31Sc_SIQ?autoplay=0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
+                        2. via XML editor
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <p>Each irplus remote control can be edited to fit your requirements. You can import and export irplus files
+                        within the app, but you may also create a totally new one and import it via file or even via an URL.
+                        The files will export als *.irplus files, which contains the layout and the codes in XML notation.
+                        They can be edited with any text editor on any operating system.</p>
+
+
+
+                    <p>You may use the full Unicode (UTF-8) set for naming your buttons. In addition to this you can use font-awesone
+                        icons to specify buttons. To choose an icon use the unicode identifier. Here: "f050". For a full
+                        list of font-awesome icons see here.To get the unicode identifier for an icon, click on it and search
+                        for 'Unicode'.</p>
+
+                    <p>You may also use Unicode Emojis but these may not be available on all Android devices. But 4.4/5.x+ should
+                        have them. See this url for reference and copy+paste them into the label attribute
+                        <a target="_blank" href="http://getemoji.com/"></a>
+                    </p>
+
+                    <p>
+                        Check out the XML samples inside the app under the Brand "Examples"
+                    </p>
+                    <p>
+                        Each layout consists of columns and rows. The column value is to be seen more like a grid column. A button may span multiple
+                        colums, so we can have each line have a different amount of buttons. To achieve this adhere to the
+                        following table with examples.
+                    </p>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th>Buttons in a row?</th>
+                                    <th>Columns (Device)</th>
+                                    <th>Span (Button)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>c</td>
+                                    <td>s = c</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>c</td>
+                                    <td>c / 2</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>c</td>
+                                    <td>c / 3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Most common remote layout: 1, 2, 3 and 4 buttons in a row on the same layout. (Lowest common multiple)
+                    </p>
+
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th>Buttons in a row?</th>
+                                    <th>Columns (Device)</th>
+                                    <th>Span (Button)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>12</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>12</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>12</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>12</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table style="text-align: left;" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Color</th>
+                                    <th>Hex-Code</th>
+
+                                    <th>Color</th>
+                                    <th>Hex-Code</th>
+
+                                    <th>Color</th>
+                                    <th>Hex-Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color: black;"></td>
+                                    <td>FF000000</td>
+
+                                    <td style="background-color: #C84334;"></td>
+                                    <td>FFC84334</td>
+
+                                    <td style="background-color: #ff00ff;"></td>
+                                    <td>FFFF00FF</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #444444;"></td>
+                                    <td>FF444444</td>
+
+                                    <td style="background-color: #D6A81F;"></td>
+                                    <td>FFD6A81F</td>
+
+                                    <td style="background-color: #FFFF00;"></td>
+                                    <td>FFFFFF00</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #888888;"></td>
+                                    <td>FF888888</td>
+
+                                    <td style="background-color: #2A4C94;"></td>
+                                    <td>FF2A4C94</td>
+
+                                    <td style="background-color: #00FFFF;"></td>
+                                    <td>FF00FFFF</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;"></td>
+                                    <td>FFFFFFFF</td>
+
+                                    <td style="background-color: #1E7854;"></td>
+                                    <td>FF1E7854</td>
+
+                                    <td style="background-color: #00FF00;"></td>
+                                    <td>FF00FF00</td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</p>
+
+<p class="lead">
+    Full XML specification (Updated March 2016)
+</p>
+
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="3">device tag</th>
+            </tr>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>Validity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>manufacturer</td>
+                <td>The label for the manufacturer of this device</td>
+                <td>Mandatory</td>
+            </tr>
+            <tr>
+                <td>model</td>
+                <td>The label for the model of this device or remote</td>
+                <td>Mandatory</td>
+            </tr>
+            <tr>
+                <td>columns</td>
+                <td>The columns of this device's layout. Use in combination with button span property</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>format</td>
+                <td>The format of this device's infrared codes. Based on this additional properties might be needed</td>
+                <td>Mandatory</td>
+            </tr>
+            <tr>
+                <td>&lt;modifiers&gt;</td>
+                <td>Depending on the format there are several modifiers available</td>
+                <td>See the next table</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Format</th>
+                <th>Description</th>
+                <th>Modifiers</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>WINLIRC_RAW</td>
+                <td>This is the simplest of all formats, it just describes on-off timing of IR LED in ms.</td>
+                <td>frequency,repeat,repeatgap</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>PRONTO_HEX</td>
+                <td>Philips Pronto. It describes the sequence as bursts and includes the carrier frequency.</td>
+                <td>repeat</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>WINLIRC_RC5</td>
+                <td>LIRC notation for RC5. The carrier frequency is hardcoded to 36000Hz for this.</td>
+                <td>repeat, bits, pre-bits</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>WINLIRC_RC6</td>
+                <td>LIRC notation for RC6 or MCE</td>
+                <td>frequency, repeat, repeatheader, bits, pre-bits, toggle-bit-type, toggle-bit-pos, gap-space</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>DENON_K_BINARY</td>
+                <td>Denon Kaseyko format found in official PDF codelist</td>
+                <td>-</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>DENON_BINARY</td>
+                <td>Denon Sharp format found in official PDF codelist</td>
+                <td>-</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>YAMAHA_NEC_HEX</td>
+                <td>Yamaha NEC format found official service manual</td>
+                <td>-</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>WINLIRC_NEC1</td>
+                <td>LIRC notation for standard NEC protocol</td>
+                <td>frequency, repeat, repeatheader, bits, pre-bits</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>WINLIRC_NECx1</td>
+                <td>LIRC notation for a variation of NEC protocol. Different header and outro. Often used by Samsung.</td>
+                <td>frequency, repeat, repeatheader, bits, pre-bits</td>
+                <td>x</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="3">button tag</th>
+            </tr>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>Validity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>label</td>
+                <td>The label for this button. Can be Unicode (including FontAwesome range)</td>
+                <td>Mandatory, but can be empty for special uses</td>
+            </tr>
+            <tr>
+                <td>labelColor</td>
+                <td>The color for the label in AARRGGBB notation (example FFAA88CC)</td>
+                <td>Optional, default will be FFFFFFFF (White)</td>
+            </tr>
+            <tr>
+                <td>backgroundColor</td>
+                <td>The background color for the button in AARRGGBB notation (example FFAA88CC)</td>
+                <td>Optional, default will be FF444444 (Dark Gray)</td>
+            </tr>
+            <tr>
+                <td>labelSize</td>
+                <td>The size for the label in float dp. Will be adjusted to device's pixel density</td>
+                <td>Optional, when not used the label size will be dynamically set depending on the label length</td>
+            </tr>
+            <tr>
+                <td>span</td>
+                <td>Specifies how many columns (see device columns) this button should take</td>
+                <td>Optional, if not set span will be 1. If you do not set this make sure the column property is reasonably sized
+                </td>
+            </tr>
+            <tr>
+                <td>bitmap</td>
+                <td>A bitmap encoded in Base64 which will be shown on the button. It is recommended to use a transparent background,
+                    as it is rendered on top of the regular background.</td>
+                <td>Optional, use empty label and labelSize="0"" if you don't want the default text next to the image</td>
+            </tr>
+            <tr>
+                <td>bitmapHeight</td>
+                <td>Specifies the bitmap height in dp. The width will be automatically set to preserve the aspect ratio.</td>
+                <td>Optional, else the bitmap height in px will be used</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,274 @@
+<p class="lead">
+  How to add new IR codes...
+</p>
+
+<p>The first attempts to find new codes should be done via a good old internet research. Often someone in this big world probably
+  already provided codes, or even the manufacturer did. Just use "modelname + discrete infrared codes" in your favorite search
+  engine. Common Google Searches to find codes (May need to disable pop up blocker)</p>
+
+
+
+<div class="input-group mb-3">
+
+  <input type="text" class="form-control googleautosearch" placeholder="Model no. of remote or device" aria-label="Model number of remote or device"
+    aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" onclick="doCommonGSearches($('.googleautosearch'));">Search</button>
+  </div>
+</div>
+
+<p class="lead">
+  Popular web resources about IR codes (3rd party)
+</p>
+
+<p>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('http://files.remotecentral.com/', '_blank');">Remotecentral</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('http://lirc.sourceforge.net/remotes/', '_blank');">LIRC</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('http://www.hifi-remote.com/forums/dload.php', '_blank');">JP1 files</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('http://www.getzweb.net/jp1/', '_blank');">JP1 lookup</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('https://www.pioneerelectronics.com/PUSA/Support/Home-Entertainment-Custom-Install/IR+Codes', '_blank');">Pioneer</button>
+</p>
+
+<p class="lead">
+  Already requested codes - Help to find them or add yours!
+</p>
+
+<p>You can create new code requests on the
+  <a href="https://github.com/irplus-remote/irplus-codes.github.io/issues" target="_blank">GitHub issue tracker</a>. If you have codes or information about other devices posted there feel free to comment :-) </p>
+
+
+<p class="lead">
+  Converters and tools
+</p>
+<p>
+
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('/converter/rdf.html', '_blank');">RDF -> irplus</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('/converter/lirc.html', '_blank');">LIRC -> irplus</button>
+  <button type="button" class="btn btn-primary" style="margin: 3px" onclick="window.open('/converter/rcentral.html', '_blank');">RemoteCentral -> irplus</button>
+
+
+</p>
+
+<p class="lead">
+  Ways to read codes from the real device remote:
+</p>
+
+<div class="accordion" id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          COM/RS232 IR receiver for PC
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <p>You can build it yourself by using the following components. Often you can gather these components from old devices
+          like SAT-receivers and DVD-Players. Note: This will _NOT_ work with USB-to-COM / RS232 Adapters like Prolific!</p>
+
+
+        <p class="lead">
+          Shopping list:
+        </p>
+
+
+        <span class="badge badge-secondary">9-pin COM-Port connector (usually female)</span>
+
+        <span class="badge badge-secondary">any 36-40Khz IR receiver (example: TSOP 1738)</span>
+
+        <span class="badge badge-secondary">10K Resistor</span>
+
+        <span class="badge badge-secondary">4.7K Resistor</span>
+
+        <span class="badge badge-secondary">Diode 1N4148</span>
+
+        <span class="badge badge-secondary">Capacitor 4.7µ</span>
+
+        <br>
+        <br>
+
+        <p>
+          <img src="images/solderimg.png" class="img-fluid rounded" alt="Responsive image">
+        </p>
+
+        <p>Soldering: GND = Pin 5; RTS = Pin 7; DCD = Pin 1; Note: The connector is showing the connector part. When you are
+          soldering consider that the pins on the back part are on the other side, So for instance Pin 1 is the upper left-most
+          one. </p>
+
+
+        <img src="images/DE9female.png" class="img-fluid rounded" alt="Responsive image">
+
+        <p>To read the codes I recommend to use either
+          <a href="http://www.lirc.org/" target="_blank">lirc</a> (Linux) or
+          <a href="http://winlirc.sourceforge.net/" target="_blank">winlirc</a> (Windows). Here you will see the procedure with WinLIRC, but Lirc/Linux one should be very similar.
+          Use irgraph.exe to test your receiver. A typical infrared code should look like on the irgraph picture - It might
+          be wider or lower, but still you should see some bars. </p>
+
+
+        <p>
+          Use lirc / winlirc to create a configuration file for your remote control. There are two ways of creating this configuration
+          file: "raw" and "default". It should be first tried to create the config with "default" and if this fails a second
+          attempt using "raw" should be considered.
+        </p>
+
+        <p>
+          Example command for default mode:
+        </p>
+
+        <div class="alert alert-dark" role="alert">
+          <samp>irrecord -d plugins\SerialDevice.dll mydevice.cf</samp>
+        </div>
+
+        <p>
+          Example command for raw mode:
+        </p>
+        <div class="alert alert-dark" role="alert">
+          <samp>irrecord -f -d plugins\SerialDevice.dll mydevice.cf</samp>
+        </div>
+        <p>
+          The result of a lirc configuration might look like this:
+        </p>
+
+        <div class="alert alert-dark" role="alert">
+          <samp>bits 16
+            <br> flags SPACE_ENC|CONST_LENGTH
+            <br> eps 30
+            <br> aeps 100
+            <br> header 9176 4407
+            <br> one 679 1581
+            <br> zero 679 452
+            <br> ptrail 686
+            <br> repeat 9173 2138
+            <br> pre_data_bits 16
+            <br> pre_data 0x10EF
+            <br> gap 108572
+            <br> toggle_bit_mask 0x0
+            <br> begin codes
+            <br> mute 0x6897
+            <br> pwr 0x7887
+            <br> av 0x807F
+            <br> tv/rad 0x2AD5 </samp>
+        </div>
+
+        <p>
+          Congratulations! You have successfully read the codes of your remote! Advanced Information: One / Zero / Header determines
+          how many time passes during your remote does to represent a logical state. Example: If we could see the remote’s
+          infrared light we would see a “1” represented by 679µs of ir-light and following 1581µs of no-light. A “0” would
+          be represented by 679µs of ir-light and 452µs of silence. Bits determines how many 0 or 1 are possible for this
+          format - in this case (Mute-code) 16-bits (4-Bytes) 00010000 11101111 01101000 10010111. The third and fourth byte
+          are only repeat-sequences where each bit is inverted.
+        </p>
+
+        <p class="lead">
+            Import the lirc configuration in irplus
+          </p>
+
+          <p>
+              You can either directly import the lirc file in irplus or create a customized XML layout. Read more about the layout in the "Layout" section of this website.
+            </p>
+
+            <!-- 
+        <p>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <p>
+                  <img src="images/rasbgpiolirc.jpg" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;"
+                    alt="...">
+                </p>
+              </div>
+              <div class="col-sm">
+                <p>
+                  <img src="images/irdiode_names.jpg" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;"
+                    alt="...">
+                </p>
+              </div>
+              <div class="col-sm">
+                <p>
+                  <img src="images/irgraph.png" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;" alt="...">
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </p>-->
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+          aria-controls="collapseTwo">
+          Raspberry Pi and GPIO IR LED
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <p>This is the new guide which you can follow if you have a brand new Raspberry Pi with Raspbian 3.18.x firmware insatlled.
+          It's really easy and the recommended way. Attach the IR-Receiver to the GPIO18 (PIN12) pin, to 3.3V (PIN1), if
+          unreliable try 5V (PIN2), and any GND (e.g. PIN 14) The pin-out varies by IR-Receiver, read the documentation or
+          datasheet of your receiver. Make sure to wire everything correctly as doing an error on this step might kill your Raspberry!</p>
+
+        <p>Install lirc and optional lirc-x package: </p>
+
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo apt-get install lirc</samp>
+        </div>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo apt-get install lirc-x</samp>
+        </div>
+
+        <p>Enable lirc-rpi module:</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo nano /boot/config.txt </samp>
+        </div>
+
+        <p>Change...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>#dtoverlay=lirc-rpi</samp>
+        </div>
+        <p>to...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>dtoverlay=lirc-rpi</samp>
+        </div>
+        <p>Reboot Raspbian...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo reboot</samp>
+        </div>
+        <p>Check if lirc is working by trying to receive data...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>mode2 -d /dev/lirc0</samp>
+        </div>
+        <p>
+            Mode2 Usage: <a href="http://www.lirc.org/html/mode2.html" target="_blank">http://www.lirc.org/html/mode2.html</a>
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+          aria-controls="collapseThree">
+          Smartphone (Only LG and HTC)
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        <p>Some Smartphones can record codes (HTC M7,M8,M9+, LG G3, G4). In that case you can use irplus to record the codes.
+        </p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yfIZSbl1Iqg?autoplay=0" allowfullscreen></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<p class="lead">
+    Transmitting IR signals via WiFi (HTTP) to external IR hardware (irplus LAN)
+</p>
+
+<p>irplus LAN This is a spin-off app of the original for sending custom infrared codes via a WiFi or Bluetooth. It has all the
+    same features, but instead of using the IR-blaster it will send the IR-sequence over network (via plain HTTP) to a server
+    which will do the job of processing and sending them as IR-light. Sounds cool? So you can make use of the app even when
+    using a phone without IR-blaster. Although there is a small catch. You need to setup a server to process the signal.
+    The process will be described here.</p>
+
+<p class="lead">
+    Prepare the hardware
+</p>
+
+
+<p>
+    First you'll need a server obviously. For the sake of simplicity this guide will be described using a Raspberry Pi 2, as
+    it offers a GPIO port which does the job without complex circuits. However you can try to setup the server on other platforms
+    as well. Hardware IR transmitter (LED). Note the electric current of the LED I
+    <sub>f</sub> in
+    <i>A</i>. This is needed to calculate a proper R. Resistor for avoiding to fry the IR-LED. Apply the formula R =
+    <sup>U</sup>/
+    <sub>I</sub> to calculate it. Some cables to connect it to the GPIO. If you use a standard PC you should use a Serial IR transmitter
+    circuit.
+
+</p>
+
+<p class="lead">
+    Software requirements
+</p>
+
+<p>
+    This may vary and can be modified to personal preference. In this section i'll be covering the setup for the Raspberry Pi
+    Software A Linux based operating system. I've been using OSMC, as i use the Raspberry Pi mostly with this OS attached
+    to my TV. So it's also at the perfect position to send IR.
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Software used</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Raspbian for Raspberry (Personal preference)</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://abyz.me.uk/rpi/pigpio/" target="_blank">pigpio C library for GPIO</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Python 2.x</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<p class="lead">
+    Start the server
+</p>
+
+<p>
+    After fulfilling the requiremets you can download the server script and start it. Please make sure to modify the listed variables
+    to match your hardware. Variables The GPIO Port where the IR-LED is connected to. I'll be using GPIO 17. Make sure you're
+    using a 3.3V Pin! Modify this line accordingly:
+</p>
+
+<div class="alert alert-dark" role="alert">
+    <samp>tx = GPIOIRTransmission(pi, 17, query_carrier[0])</samp>
+</div>
+
+<p>
+    The network interface and port. Basically, just make sure your server is not accessible from outside your local LAN. And
+    setup firewall properly if you don't want others to change your TV channels ;-). Adapt to your IP and Port:
+</p>
+
+
+<div class="alert alert-dark" role="alert">
+    <samp>server = HTTPServer(('0.0.0.0', 8080), GetHandler)</samp>
+</div>
+
+<p>
+    <a href="scripts/irpluslan.py" target="_blank">Download the Python Server script</a>
+</p>
+
+<p>
+    Start the server by calling:
+</p>
+
+<div class="alert alert-dark" role="alert">
+    <samp>nohup python irplus.py & </samp>
+</div>
+
+<p>
+    If you want to kill it call this in your browser or any program:
+</p>
+
+<div class="alert alert-dark" role="alert">
+    <samp>http://192.168.1.104:8080?command=kill</samp>
+</div>
+
+
+<p class="lead">
+    Setup in the app
+</p>
+
+<p>
+    Setup in the App To setup enter the URL with the port into the App Setting.
+</p>
+
+<p class="lead">
+    Specification of request
+</p>
+
+<p>
+    Specification of request The requests for IR-signals are made up like this and can be sent from other applications or the
+    web-browser as well if you have the raw IR code.
+</p>
+
+<div class="alert alert-dark" role="alert">
+    <samp>http://192.168.1.104:8080/?carrier=38000&code=9000+4500...</samp>
+</div>
+
+<p class="lead">
+    Room for improvement
+</p>
+
+<p>
+    Find a way to send modulated IR signals without using a native C library. Probably will be hard... Update the server code
+    to Python3 Provide alternative means to process the requests. E.g. Nodejs, Java etc.
+</p>

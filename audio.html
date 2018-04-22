@@ -1,0 +1,62 @@
+<p class="lead">
+    Transmitting IR signals via the 3.5mm audio jack (irplus WAVE)
+</p>
+<p>
+        <a href="https://play.google.com/store/apps/details?id=net.binarymode.android.irpluswave" target="_blank" class="btn btn-primary">Install</a>
+    </p>
+
+<p>It is possible to IR signals via the audio port. It does this by modulating the data onto a sine which is half the carrier
+    frequency (38 kHz is the default if the remote doesn't have a frequency specified). After rectification the sine becomes
+    a full frequency carrier. The wave is inverted on the right channel, so the left and right channels can be used to double
+    the voltage.</p>
+
+<p>
+    Source:
+    <a href="http://www.lirc.org/html/audio.html" target="_blank">http://www.lirc.org/html/audio.html</a>
+</p>
+
+<p class="lead">
+    Build the IR blaster
+</p>
+
+<p>Depending on the voltage power of your phone you might need to build an active (with battery) or passive IR blaster. I recommend
+    to get IR-LEDs with the lowest Uf voltage possible and test with an 1.2V power source (e.g. 1.2V rechargable battery)
+    if they are bright enough.
+</p>
+<p>Warning: Please try to check the wiring multiple times before attaching this to a smartphone. Shorting and/or overloading
+    may damage the phone's audio jack. Also I'm not responsible for any damaged caused by using this method. Try at your
+    own risk. I have tested with a passive blaster with a very simple circuit. 2 IR-LEDs connected with each other. The diagram
+    is an adapted version of the lirc.org diagram with the resistance removed. </p>
+
+<img src="images/audio_transmitter.png" class="img-fluid" alt="Responsive image">
+
+<p>This is a photo of my solution using a 'B-Speech Rx2' Bluetooth Stereo receiver. I can position this device with the self-made
+    blaster connected near the devices i want to control and be able to send IR commands even without direct line of sight
+    from the phone. Actually this is even better than using the integrated IR-blaster! </p>
+<p>Note: This can work with almost any Stereo A2DP Bluetooth Stereo receiver, but it needs to have a high voltage / peak out.
+</p>
+
+<img src="images/audio_a2dp.png" class="img-fluid" alt="Responsive image">
+
+<p class="lead">
+    How to use irplus WAVE
+</p>
+
+<p>
+    I have ported this method to Android so you can use the Audio-Port or a Bluetooth A2DP Stereo receiver (Mono will probably
+    not work due to low voltage) to send IR-codes on any phone. To use this feature make sure to download irplusWAVE from
+    the PlayStore as this is a separate app specifically for this use and make sure the Volume rocker for Media is at 100%.
+    If you want to use Bluetooth/A2DP make sure you are connected to the stereo receiver via android (pairing already done)
+</p>
+
+<p class="lead">
+        YouTube Tutorial to build IR blaster
+    </p>
+    
+<p>
+        Made by <a href="https://www.youtube.com/channel/UCNSfV3L4jv7Kx22lxo0Sv-g" target="_blank">Cameron Gray</a>. Thanks!
+    </p>
+    
+    <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cD2c2DhlvuQ?autoplay=0" allowfullscreen></iframe>
+        </div>
