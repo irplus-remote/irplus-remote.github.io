@@ -12,8 +12,17 @@
 <p class="lead">
     Prepare the hardware
 </p>
+
+
 <p>For this guide we will use an Arduino Uno with a Bluetooth HC-05 serial module. The infrared LED with a Resistor on it's
-    voltage pin will be attached to a PWM pin (3 as default) and GND.
+    voltage pin will be attached to a PWM pin (3 as default) and GND. For the connection of the HC05 please check the following
+    diagram. Note: It could be that you have to use a voltage regulator for the Pin-out! This depends on wether your HC05
+    has a voltage regulator integrated on it's breakboard or not! Using the Pin-out (5V) without any voltage regulator will
+    most likely fry your HC05! Also Note: rxPin -> TXD, txPin -> RXD! 
+</p>
+
+<p>
+    <img src="images/hc05.png" class="img-fluid rounded" alt="Responsive image">
 </p>
 
 <p class="lead">
