@@ -1,13 +1,13 @@
+//console.log("app.js loaded");
 function switchPage(page) {
     //console.log("switch page");
     $(".contentDiv").empty();
     $(".contentDiv").append("<div data-include='" + page + "'></div>");
     processIncludes();
-    //collapse the responsive navbar after clicking a link
-    $('.navbar-collapse').collapse('hide');
 }
 
 function processIncludes() {
+    //console.log("processIncludes");
     $("[data-include]").each(function () {
         var that = $(this);
         that.load(that.attr('data-include'), function () {
@@ -15,17 +15,6 @@ function processIncludes() {
         });
     });
 }
-
-$(function () {
-    var hash = window.location.hash;
-    console.log(hash);
-    var pagetoshow = 0;
-    if (hash !== undefined && hash !== "") {
-        switchPage(hash.replace("#", "") + ".html");
-    } else {
-        processIncludes();
-    }
-});
 
 function doCommonGSearches(el){
     var autogvalue = el.val();
@@ -37,3 +26,24 @@ function doCommonGSearches(el){
      window.open(gurl + autogvalue + '+ict', '_blank');
      window.open(gurl + autogvalue + '+pronto hex', '_blank');
 }
+
+function pageLoaded(){
+    //console.log("pageLoaded");
+    var hash = window.location.hash;
+    if (hash !== undefined && hash !== "") {
+        switchPage(hash.replace("#", "") + ".html");
+    } else {
+        processIncludes();
+    }
+}
+
+$(window).on('hashchange', function(e) {
+    //collapse the responsive navbar after clicking a link
+    $('.navbar-collapse').collapse('hide');
+    //load content
+    pageLoaded();
+});
+ 
+$(function () {
+    pageLoaded();
+});
