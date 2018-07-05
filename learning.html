@@ -54,6 +54,102 @@
 </p>
 
 <div class="accordion" id="accordion">
+  
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+          aria-controls="collapseTwo">
+          Raspberry Pi and IR receiver connected to GPIO
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <p>This is the new guide which you can follow if you have a new Raspberry Pi with Raspbian installed.
+          It's really easy and the recommended way. Attach the IR-Receiver to the GPIO18 (PIN12) pin, to 3.3V (PIN1), if
+          unreliable try 5V (PIN2), and any GND (e.g. PIN 14) The pin-out varies by IR-Receiver, read the documentation or
+          datasheet of your receiver. Make sure to wire everything correctly as doing an error on this step might kill your Raspberry! The following image shows some examples of pin-outs.</p>
+
+            
+        <div class="container">
+          <div class="row">
+            <div class="col-sm" style="text-align: center;">
+              <p>
+                <img src="images/pins2.jpg" onclick="window.open(this.src, '_blank')" alt="Pins" class="img-thumbnail" style="height: 100px; cursor: pointer;">
+              </p>
+              <p>(S=Data; -=GND; +=VCC)</p>
+            </div>
+            <div class="col-sm" style="text-align: center;">
+              <p>
+                <img src="images/gpio.jpg" onclick="window.open(this.src, '_blank')" alt="Gpio" class="img-thumbnail" style="height: 100px; cursor: pointer;">
+              </p>
+              <p>Picture of RaspberryPi3 with IR receiver</p>
+            </div>
+          </div>
+        </div>
+
+ 
+        <p>Install lirc and optional lirc-x package: </p>
+
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo apt-get install lirc</samp><br>
+          <samp>sudo apt-get install lirc-x</samp>
+        </div>
+        <p>Enable lirc-rpi module:</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo nano /boot/config.txt </samp>
+        </div>
+        <p>Change...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>#dtoverlay=lirc-rpi</samp>
+        </div>
+        <p>to...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>dtoverlay=lirc-rpi</samp>
+        </div>
+        <p>Edit lirc default driver:</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo nano /etc/lirc/lirc_options.conf</samp>
+        </div>
+        <p>Change...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>driver = devinput</samp>
+        </div>
+        <p>to...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>driver = default</samp>
+        </div>
+        <p>Reboot Raspbian...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo reboot</samp>
+        </div>
+        <p>Disable and stop lirc daemon in order to free /dev/lirc0</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>sudo systemctl disable lircd</samp><br>
+          <samp>sudo systemctl stop lircd</samp>
+        </div>
+
+        <p>Check if lirc is working by trying to receive data...</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>mode2 -d /dev/lirc0</samp>
+        </div>
+        <p>
+            Mode2 Usage: <a href="http://www.lirc.org/html/mode2.html" target="_blank">http://www.lirc.org/html/mode2.html</a>
+        </p>
+        <p>Create lirc config file (-f raw when first way fails)</p>
+        <div class="alert alert-dark" role="alert">
+          <samp>irrecord -n -d /dev/lirc0 </samp><br>
+          <samp>irrecord -n -f -d /dev/lirc0 </samp><br>
+        </div>
+        <p>Now you can import the lirc file into irplus. Also send it to me via mail please to improve the database!</p>
+       
+
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
@@ -65,7 +161,7 @@
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <p>You can build it yourself by using the following components. Often you can gather these components from old devices
+        <p>This way is to read codes from serial port from a PC. If you have a Raspberry Pi please consider using that method. The PC way is a lot harder! You can build it yourself by using the following components. Often you can gather these components from old devices
           like SAT-receivers and DVD-Players. Note: This will _NOT_ work with USB-to-COM / RS232 Adapters like Prolific!</p>
 
 
@@ -169,88 +265,11 @@
               You can either directly import the lirc file in irplus or create a customized XML layout. Read more about the layout in the "Layout" section of this website.
             </p>
 
-            <!-- 
-        <p>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm">
-                <p>
-                  <img src="images/rasbgpiolirc.jpg" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;"
-                    alt="...">
-                </p>
-              </div>
-              <div class="col-sm">
-                <p>
-                  <img src="images/irdiode_names.jpg" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;"
-                    alt="...">
-                </p>
-              </div>
-              <div class="col-sm">
-                <p>
-                  <img src="images/irgraph.png" class="rounded mx-auto d-block img-fluid" style="max-height: 407px; max-width: 207px;" alt="...">
-                </p>
-              </div>
-
-            </div>
-          </div>
-        </p>-->
+         
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-          aria-controls="collapseTwo">
-          Raspberry Pi and GPIO IR LED
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <p>This is the new guide which you can follow if you have a brand new Raspberry Pi with Raspbian 3.18.x firmware insatlled.
-          It's really easy and the recommended way. Attach the IR-Receiver to the GPIO18 (PIN12) pin, to 3.3V (PIN1), if
-          unreliable try 5V (PIN2), and any GND (e.g. PIN 14) The pin-out varies by IR-Receiver, read the documentation or
-          datasheet of your receiver. Make sure to wire everything correctly as doing an error on this step might kill your Raspberry!</p>
 
-        <p>Install lirc and optional lirc-x package: </p>
-
-        <div class="alert alert-dark" role="alert">
-          <samp>sudo apt-get install lirc</samp>
-        </div>
-        <div class="alert alert-dark" role="alert">
-          <samp>sudo apt-get install lirc-x</samp>
-        </div>
-
-        <p>Enable lirc-rpi module:</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>sudo nano /boot/config.txt </samp>
-        </div>
-
-        <p>Change...</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>#dtoverlay=lirc-rpi</samp>
-        </div>
-        <p>to...</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>dtoverlay=lirc-rpi</samp>
-        </div>
-        <p>Reboot Raspbian...</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>sudo reboot</samp>
-        </div>
-        <p>Check if lirc is working by trying to receive data...</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>mode2 -d /dev/lirc0</samp>
-        </div>
-        <p>
-            Mode2 Usage: <a href="http://www.lirc.org/html/mode2.html" target="_blank">http://www.lirc.org/html/mode2.html</a>
-        </p>
-
-
-      </div>
-    </div>
-  </div>
   <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
@@ -271,4 +290,8 @@
       </div>
     </div>
   </div>
+  
+
+
+
 </div>
