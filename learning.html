@@ -67,7 +67,7 @@
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body">
-        <p>This is the new guide which you can follow if you have a new Raspberry Pi with Raspbian installed.
+        <p>This is the new guide which you can follow if you have a new Raspberry Pi with Raspbian / Raspberry Pi OS installed.
           It's really easy and the recommended way. Attach the IR-Receiver to the GPIO18 (PIN12) pin, to 3.3V (PIN1), if
           unreliable try 5V (PIN2), and any GND (e.g. PIN 14) The pin-out varies by IR-Receiver, read the documentation or
           datasheet of your receiver. Make sure to wire everything correctly as doing an error on this step might kill your Raspberry! The following image shows some examples of pin-outs.</p>
@@ -101,14 +101,14 @@
         <div class="alert alert-dark" role="alert">
           <samp>sudo nano /boot/config.txt </samp>
         </div>
-        <p>Change...</p>
+        <p>Uncomment (remove #)</p>
         <div class="alert alert-dark" role="alert">
-          <samp>#dtoverlay=lirc-rpi</samp>
+          <samp>#dtoverlay=lirc-rpi</samp><br><br>
+          <p>On the latest Raspberry OS it is different: </p>
+          <samp>#dtoverlay=gpio-ir,gpio_pin=17</samp><br>
+          <samp>#dtoverlay=gpio-ir-tx,gpio_pin=18</samp>
         </div>
-        <p>to...</p>
-        <div class="alert alert-dark" role="alert">
-          <samp>dtoverlay=lirc-rpi</samp>
-        </div>
+         
         <p>Edit lirc default driver:</p>
         <div class="alert alert-dark" role="alert">
           <samp>sudo nano /etc/lirc/lirc_options.conf</samp>
@@ -121,11 +121,11 @@
         <div class="alert alert-dark" role="alert">
           <samp>driver = default</samp>
         </div>
-        <p>Reboot Raspbian...</p>
+        <p>Reboot...</p>
         <div class="alert alert-dark" role="alert">
           <samp>sudo reboot</samp>
         </div>
-        <p>Disable and stop lirc daemon in order to free /dev/lirc0</p>
+        <p>Disable and stop lirc daemon in order to free /dev/lirc0 (or lirc1)</p>
         <div class="alert alert-dark" role="alert">
           <samp>sudo systemctl disable lircd</samp><br>
           <samp>sudo systemctl stop lircd</samp>
@@ -133,17 +133,18 @@
 
         <p>Check if lirc is working by trying to receive data...</p>
         <div class="alert alert-dark" role="alert">
-          <samp>mode2 -d /dev/lirc0</samp>
+          <samp>mode2 -d /dev/lirc0 (or lirc1)</samp>
         </div>
         <p>
             Mode2 Usage: <a href="http://www.lirc.org/html/mode2.html" target="_blank">http://www.lirc.org/html/mode2.html</a>
         </p>
         <p>Create lirc config file (-f raw when first way fails)</p>
         <div class="alert alert-dark" role="alert">
-          <samp>irrecord -n -d /dev/lirc0 </samp><br>
-          <samp>irrecord -n -f -d /dev/lirc0 </samp><br>
+          <samp>irrecord -n -d /dev/lirc0 (or lirc1) </samp><br>
+          <samp>irrecord -n -f -d /dev/lirc0 (or lirc1) </samp><br>
         </div>
         <p>Now you can import the lirc file into irplus. Also send it to me via mail please to improve the database!</p>
+        <p>Suggestion: You can also use <a href="https://github.com/bengtmartensson/IrScrutinizer/tags" target="_blank">IRScrutinizer by Bengt Martensson</a> to record the codes with a GUI and directly export to *.irplus format!</p>
        
 
       </div>
@@ -281,7 +282,9 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
-        <p>Some Smartphones can record codes (HTC M7,M8,M9+, LG G3, G4). In that case you can use irplus to record the codes.
+        <p>Some Smartphones can record codes (HTC M7,M8,M9+, LG G3, G4). In that case you can use irplus to record the codes. 
+        </p>
+        <p>Additonal Note: LG phones can record, but only in a proprietary way. So the codes can't be shared to other devices. If you plan to share the codes you need to use HTC! 
         </p>
         <div class="embed-responsive embed-responsive-16by9">
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yfIZSbl1Iqg?autoplay=0" allowfullscreen></iframe>
