@@ -14,27 +14,91 @@
 </p>
 
 
-<p>For this guide we will use an Arduino Uno with a Bluetooth HC-05 serial module. The infrared LED with a Resistor on it's
+<p>Variant 1: For this guide we will use an Arduino Uno with a Bluetooth HC-05 serial module. The infrared LED with a Resistor on it's
     voltage pin will be attached to a PWM pin (3 as default) and GND. For the connection of the HC05 please check the following
     diagram. Note: It could be that you have to use a voltage regulator for the Pin-out! This depends on wether your HC05
     has a voltage regulator integrated on it's breakboard or not! Using the Pin-out (5V) without any voltage regulator will
     most likely fry your HC05! Also Note: rxPin -> TXD, txPin -> RXD! 
 </p>
-
-<p>
-    <img src="images/hc05.png" class="img-fluid rounded" alt="Responsive image">
+<p>Variant 2: For this guide we will use an ESP32 Module which comes with WiFi and Bluetooth out of the box.
 </p>
 
-<p class="lead">
-    Software on Arduino
-</p>
+<div class="row">
+    <div class="col-6 col-md-6" style="font-size: 20px;font-weight: bold;">Arduino</div>
+    <div class="col-6 col-md-6" style="font-size: 20px;font-weight: bold;">ESP32</div>
+    <div class="col-6 col-md-6">
+        <img src="images/hc05.png" class="img-fluid rounded" alt="Responsive image">
+    </div>
+    <div class="col-6 col-md-6">
+        <img src="images/esp32.jpg" class="img-fluid rounded" alt="Responsive image">
+    </div>
+     
+  </div>
+
+ 
+<br>
 
 
+    <p class="lead">
+        Instructions for flashing
+    </p>
+    
+    
 <p>
-    <a href="scripts/irplusarduino.ino" target="_blank">Download the C (*.ino) sketch for Arduino</a>
-    <br> 1. Upload the script to your Arduino
-    <br> 2. Pair your Android with the HC-05 Bluetooth module (Password: 1234). Note the HC-05 should be in 9600 baud default
-    mode.
-    <br> 3. Now start/restart irplusLAN and select the HC-05 Bluetooth module in the App's settings.
-    <br> 4. If you press a button on irplusLAN the app will transmit the signal to Arduino via Bluetooth and Arduino will send
-    the IR signal.</p>
+
+  <ol>
+    <li>Make sure the components are wired up correctly. <i>Common mistake:</i> You do NOT need to connect VCC of IR Transmitter Boards, only DATA and GND!</li>
+    <li>Download the script for your hardware using the table below</li>
+    <li><a href="https://www.arduino.cc/en/software" target="_blank">Download</a> and Install Arduino IDE </li>
+    <li>Install IRremote 3.3.0 using Manage Libraries (Ctrl+Shift+I)</li>
+    <li>For ESP32 you need to add https://dl.espressif.com/dl/package_esp32_index.json in Preferences and in Board Manager you'llneed to install esp32 and select "Board: ESP32 Dev Module". Make sure you're using the correct COM Port. On Windows to flash you need to keep BOOT pressed.</li>
+    <li>Open the Script with Arduino IDE and make sure it compiles (Ctrl+R) and after verifying do upload (Ctrl+U). After rebooting the device should be pairable in Android.</li>
+    <li>Pair your Android with the Bluetooth module (Password: 1234). The name could vary. For ESP32 it is "irplusESP32"</li>
+    <li>Now start/restart irplusLAN and select the <b>already paired</b> Bluetooth module in the App's settings.</li>
+    <li>If you press a button on irplusLAN the app will transmit the signal to Arduino via Bluetooth and Arduino will send
+      the IR signal.</li>
+    <li>To verify you can as usual use a different phone's camera to see the IR light. Some IR Emitter Breadboards come with an LED light to show activity</li>
+  </ol>
+
+   
+</p>
+    
+    
+
+
+        <p class="lead">
+            Script Downloads
+        </p>
+        
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Hardware</th>
+                <th scope="col">Last updated</th>
+                <th scope="col">Download-Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Arduino</td>
+                <td>05.06.2021</td>
+                <td>
+                    <a href="scripts/irplusarduino.ino" target="_blank">irplusarduino.ino</a>
+                </td>
+              
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>ESP32</td>
+                <td>05.06.2021</td>
+                <td>
+                    <a href="scripts/irplusesp32.ino" target="_blank">irplusesp32.ino</a>
+                </td>
+                
+              </tr>
+             
+            </tbody>
+          </table>

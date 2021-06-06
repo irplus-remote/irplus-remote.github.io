@@ -4,34 +4,36 @@
    https://github.com/Arduino-IRremote/Arduino-IRremote
    Tested with 3.3.0 Installed with Tools -> Manage Library
 */
-#include <SoftwareSerial.h>
+
+#include "BluetoothSerial.h"
 #include <IRremote.h>
+
 #include <stdio.h>
 #include <stdlib.h>
-#define rxPin 10
-#define txPin 11
 
-SoftwareSerial btSerial(rxPin, txPin);
-//----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+BluetoothSerial SerialBT;
 int dataPosition = 0;
 const int dataUpperLimit = 300;
 byte dataBytes[dataUpperLimit];
 //-----------------------------------------------------------------
 void setup() {
   //Serial.begin(9600);//Enable/disable console serial
-  btSerial.begin(9600);
-  //WARNING: USE THE CORRECT GPIO PIN. HERE 3 IS USED!
-  IrSender.begin(3, true); // Specify send pin and enable feedback LED at default feedback LED pin
+  Serial.begin(9600);
+  SerialBT.begin("irplusESP32"); //Bluetooth device name
+  //WARNING: USE THE CORRECT GPIO PIN. HERE 17 IS USED!
+  IrSender.begin(17, true); // Specify send pin and enable feedback LED at default feedback LED pin
 }
 //-------------------------------------------------------------------
 void loop() {
-  if (btSerial.available() > 0) {
-    dataBytes[dataPosition] = btSerial.read();
+  if (SerialBT.available() > 0) {
+    dataBytes[dataPosition] = SerialBT.read();
     //stop reading at this point
     if (dataPosition > 0 && (dataPosition % 2) != 0 && dataBytes[dataPosition - 1] == 255 && dataBytes[dataPosition] == 255) {
       //create array
-      unsigned int carrierFrequency = 0;
-      unsigned int dataBuffer[(dataPosition / 2) - 1];
+      short unsigned int carrierFrequency = 0;
+      short unsigned int dataBuffer[(dataPosition / 2) - 1];
       int byteCounter = 0;
       for (int i = 0; i < dataPosition / 2; i++) {
         int currentInt = word(dataBytes[byteCounter + 1], dataBytes[byteCounter]);
@@ -51,7 +53,7 @@ void loop() {
       //reset reading data
       dataPosition = 0;
       memset(dataBytes, 0, dataUpperLimit);
-      btSerial.write(1);
+      SerialBT.write(1);
 
     } else {
       dataPosition++;
